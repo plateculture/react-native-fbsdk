@@ -80,4 +80,43 @@ module.exports = {
   flush() {
     AppEventsLogger.flush();
   },
+
+  /*
+    Logs an event of Add to Cart
+  */
+  addToCart(parameters: ?Object) {
+    var params = parameters || {};
+    AppEventsLogger.logAddedToCartEvent(params.contentId, params.contentType, params.currency, params.price);
+  },
+
+  /*
+    Logs an event of search
+  */
+  searchEvent(parameters: ?Object) {
+    var params = parameters || {};
+    AppEventsLogger.logSearchedEvent(params.contentType, params.searchString, params.success || true);
+  },
+
+  viewContent(parameters: ?Object) {
+    var params = parameters || {};
+    AppEventsLogger.logViewedContentEvent(params.contentType, params.contentId, params.currency, params.price);
+  },
+
+  addToWishlist(parameters: ?Object) {
+    var params = parameters || {};
+    AppEventsLogger.logAddedToWishlistEvent(params.contentId, params.contentType, params.currency, params.price);
+  },
+
+  addPaymentInfo(success = true) {
+    AppEventsLogger.logAddedPaymentInfoEvent(success);
+  },
+
+  initiatedCheckout(parameters: ?Object) {
+    var params = parameters;
+    AppEventsLogger.logInitiatedCheckoutEvent(params.contentId, params.contentType, params.numItems, params.paymentInfoAvailable, params.currency, params.totalPrice);
+  },
+
+  completedRegistration(method) {
+    AppEventsLogger.logCompletedRegistrationEvent(method);
+  }
 };

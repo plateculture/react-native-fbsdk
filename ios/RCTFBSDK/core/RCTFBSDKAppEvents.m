@@ -70,4 +70,118 @@ RCT_EXPORT_METHOD(flush)
   [FBSDKAppEvents flush];
 }
 
+RCT_EXPORT_METHOD(logSearchedEvent:(NSString *)contentType
+                  searchString:(NSString *)searchString
+                  success: (BOOL) success)
+{
+    NSDictionary *params =
+        [[NSDictionary alloc] initWithObjectsAndKeys:
+         contentType, FBSDKAppEventParameterNameContentType,
+         searchString, FBSDKAppEventParameterNameSearchString,
+         [NSNumber numberWithInt:success ? 1 : 0], FBSDKAppEventParameterNameSuccess, nil
+        ];
+
+    [FBSDKAppEvents logEvent: FBSDKAppEventNameSearched parameters: params];
+}
+
+RCT_EXPORT_METHOD(logAddedToCartEvent :(NSString*)contentId
+    contentType :(NSString*)contentType
+    currency :(NSString*)currency
+    valToSum :(double)price)
+{
+
+    NSDictionary *params =
+        [[NSDictionary alloc] initWithObjectsAndKeys:
+            contentId, FBSDKAppEventParameterNameContentID,
+            contentType, FBSDKAppEventParameterNameContentType,
+            currency, FBSDKAppEventParameterNameCurrency,
+            nil];
+
+    [FBSDKAppEvents logEvent: FBSDKAppEventNameAddedToCart
+        valueToSum: price
+        parameters: params];
+}
+
+RCT_EXPORT_METHOD(logViewedContentEvent :(NSString*)contentType
+   contentId :(NSString*)contentId
+   currency :(NSString*)currency
+   valToSum :(double)price)
+{
+
+   NSDictionary *params =
+       [[NSDictionary alloc] initWithObjectsAndKeys:
+           contentType, FBSDKAppEventParameterNameContentType,
+           contentId, FBSDKAppEventParameterNameContentID,
+           currency, FBSDKAppEventParameterNameCurrency,
+           nil];
+
+   [FBSDKAppEvents logEvent: FBSDKAppEventNameViewedContent
+       valueToSum: price
+       parameters: params];
+}
+
+RCT_EXPORT_METHOD(logAddedToWishlistEvent :(NSString*)contentId
+   contentType :(NSString*)contentType
+   currency :(NSString*)currency
+   valToSum :(double)price)
+{
+
+   NSDictionary *params =
+       [[NSDictionary alloc] initWithObjectsAndKeys:
+           contentId, FBSDKAppEventParameterNameContentID,
+           contentType, FBSDKAppEventParameterNameContentType,
+           currency, FBSDKAppEventParameterNameCurrency,
+           nil];
+
+   [FBSDKAppEvents logEvent: FBSDKAppEventNameAddedToWishlist
+       valueToSum: price
+       parameters: params];
+}
+
+RCT_EXPORT_METHOD(logAddedPaymentInfoEvent :(BOOL)success)
+{
+
+   NSDictionary *params =
+       [[NSDictionary alloc] initWithObjectsAndKeys:
+           [NSNumber numberWithInt:success ? 1 : 0], FBSDKAppEventParameterNameSuccess,
+           nil];
+
+   [FBSDKAppEvents logEvent: FBSDKAppEventNameAddedPaymentInfo
+       parameters: params];
+}
+
+RCT_EXPORT_METHOD(logInitiatedCheckoutEvent :(NSString*)contentId
+   contentType :(NSString*)contentType
+   numItems :(int)numItems
+   paymentInfoAvailable :(BOOL)paymentInfoAvailable
+   currency :(NSString*)currency
+   valToSum :(double)totalPrice)
+{
+
+   NSDictionary *params =
+       [[NSDictionary alloc] initWithObjectsAndKeys:
+           contentId, FBSDKAppEventParameterNameContentID,
+           contentType, FBSDKAppEventParameterNameContentType,
+           [NSNumber numberWithInt:numItems], FBSDKAppEventParameterNameNumItems,
+           [NSNumber numberWithInt:paymentInfoAvailable ? 1 : 0], FBSDKAppEventParameterNamePaymentInfoAvailable,
+           currency, FBSDKAppEventParameterNameCurrency,
+           nil];
+
+   [FBSDKAppEvents logEvent: FBSDKAppEventNameInitiatedCheckout
+       valueToSum: totalPrice
+       parameters: params];
+}
+
+RCT_EXPORT_METHOD(logCompletedRegistrationEvent :(NSString*)registrationMethod)
+{
+
+   NSDictionary *params =
+       [[NSDictionary alloc] initWithObjectsAndKeys:
+           registrationMethod, FBSDKAppEventParameterNameRegistrationMethod,
+           nil];
+
+   [FBSDKAppEvents logEvent: FBSDKAppEventNameCompletedRegistration
+       parameters: params];
+}
+
 @end
