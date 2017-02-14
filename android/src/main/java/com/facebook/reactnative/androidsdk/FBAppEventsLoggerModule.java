@@ -203,6 +203,67 @@ public class FBAppEventsLoggerModule extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void setPushNotificationsRegistrationId(String registrationId) {
-        AppEventsLogger.setPushNotificationsRegistrationId(registrationId);
+      AppEventsLogger.setPushNotificationsRegistrationId(registrationId);
+    }
+
+    @ReactMethod
+    public void logSearchedEvent(String contentType, String searchString, boolean success) {
+      Bundle params = new Bundle();
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
+      params.putString(AppEventsConstants.EVENT_PARAM_SEARCH_STRING, searchString);
+      params.putInt(AppEventsConstants.EVENT_PARAM_SUCCESS, success ? 1 : 0);
+      logger.logEvent(AppEventsConstants.EVENT_NAME_SEARCHED, params);
+    }
+
+    @ReactMethod
+    public void logAddedToCartEvent(String contentId, String contentType, String currency, double price) {
+      Bundle params = new Bundle();
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, contentId);
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
+      params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
+      logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_CART, price, params);
+    }
+
+    @ReactMethod
+    public void logViewedContentEvent(String contentType, String contentId, String currency, double price) {
+      Bundle params = new Bundle();
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, contentId);
+      params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
+      logger.logEvent(AppEventsConstants.EVENT_NAME_VIEWED_CONTENT, price, params);
+    }
+
+    @ReactMethod
+    public void logAddedToWishlistEvent(String contentId, String contentType, String currency, double price) {
+      Bundle params = new Bundle();
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, contentId);
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
+      params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
+      logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_WISHLIST, price, params);
+    }
+
+    @ReactMethod
+    public void logAddedPaymentInfoEvent(boolean success) {
+      Bundle params = new Bundle();
+      params.putInt(AppEventsConstants.EVENT_PARAM_SUCCESS, success ? 1 : 0);
+      logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_PAYMENT_INFO, params);
+    }
+
+    @ReactMethod
+    public void logInitiatedCheckoutEvent(String contentId, String contentType, int numItems, boolean paymentInfoAvailable, String currency, double totalPrice) {
+      Bundle params = new Bundle();
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, contentId);
+      params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
+      params.putInt(AppEventsConstants.EVENT_PARAM_NUM_ITEMS, numItems);
+      params.putInt(AppEventsConstants.EVENT_PARAM_PAYMENT_INFO_AVAILABLE, paymentInfoAvailable ? 1 : 0);
+      params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
+      logger.logEvent(AppEventsConstants.EVENT_NAME_INITIATED_CHECKOUT, totalPrice, params);
+    }
+
+    @ReactMethod
+    public void logCompletedRegistrationEvent(String registrationMethod) {
+      Bundle params = new Bundle();
+      params.putString(AppEventsConstants.EVENT_PARAM_REGISTRATION_METHOD, registrationMethod);
+      logger.logEvent(AppEventsConstants.EVENT_NAME_COMPLETED_REGISTRATION, params);
     }
 }
