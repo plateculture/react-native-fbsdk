@@ -21,6 +21,7 @@
 package com.facebook.reactnative.androidsdk;
 
 import android.support.annotation.Nullable;
+import android.os.Bundle;
 
 import com.facebook.appevents.AppEventsConstants;
 import com.facebook.appevents.AppEventsLogger;
@@ -193,7 +194,7 @@ public class FBAppEventsLoggerModule extends ReactContextBaseJavaModule {
       params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
       params.putString(AppEventsConstants.EVENT_PARAM_SEARCH_STRING, searchString);
       params.putInt(AppEventsConstants.EVENT_PARAM_SUCCESS, success ? 1 : 0);
-      logger.logEvent(AppEventsConstants.EVENT_NAME_SEARCHED, params);
+      mAppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_SEARCHED, params);
     }
 
     @ReactMethod
@@ -202,7 +203,7 @@ public class FBAppEventsLoggerModule extends ReactContextBaseJavaModule {
       params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, contentId);
       params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
       params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
-      logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_CART, price, params);
+      mAppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_CART, price, params);
     }
 
     @ReactMethod
@@ -211,7 +212,7 @@ public class FBAppEventsLoggerModule extends ReactContextBaseJavaModule {
       params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
       params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, contentId);
       params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
-      logger.logEvent(AppEventsConstants.EVENT_NAME_VIEWED_CONTENT, price, params);
+      mAppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_VIEWED_CONTENT, price, params);
     }
 
     @ReactMethod
@@ -220,14 +221,14 @@ public class FBAppEventsLoggerModule extends ReactContextBaseJavaModule {
       params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_ID, contentId);
       params.putString(AppEventsConstants.EVENT_PARAM_CONTENT_TYPE, contentType);
       params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
-      logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_WISHLIST, price, params);
+      mAppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_TO_WISHLIST, price, params);
     }
 
     @ReactMethod
     public void logAddedPaymentInfoEvent(boolean success) {
       Bundle params = new Bundle();
       params.putInt(AppEventsConstants.EVENT_PARAM_SUCCESS, success ? 1 : 0);
-      logger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_PAYMENT_INFO, params);
+      mAppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_ADDED_PAYMENT_INFO, params);
     }
 
     @ReactMethod
@@ -238,13 +239,13 @@ public class FBAppEventsLoggerModule extends ReactContextBaseJavaModule {
       params.putInt(AppEventsConstants.EVENT_PARAM_NUM_ITEMS, numItems);
       params.putInt(AppEventsConstants.EVENT_PARAM_PAYMENT_INFO_AVAILABLE, paymentInfoAvailable ? 1 : 0);
       params.putString(AppEventsConstants.EVENT_PARAM_CURRENCY, currency);
-      logger.logEvent(AppEventsConstants.EVENT_NAME_INITIATED_CHECKOUT, totalPrice, params);
+      mAppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_INITIATED_CHECKOUT, totalPrice, params);
     }
 
     @ReactMethod
     public void logCompletedRegistrationEvent(String registrationMethod) {
       Bundle params = new Bundle();
       params.putString(AppEventsConstants.EVENT_PARAM_REGISTRATION_METHOD, registrationMethod);
-      logger.logEvent(AppEventsConstants.EVENT_NAME_COMPLETED_REGISTRATION, params);
+      mAppEventLogger.logEvent(AppEventsConstants.EVENT_NAME_COMPLETED_REGISTRATION, params);
     }
 }
