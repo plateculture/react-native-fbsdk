@@ -40,7 +40,7 @@ exports.ShareApi = require('./FBShareApi');
 exports.ShareDialog = require('./FBShareDialog');
 
 //native components
-exports.LikeView = require('./FBLikeView');
-exports.LoginButton = require('./FBLoginButton');
-exports.SendButton = require('./FBSendButton');
-exports.ShareButton = require('./FBShareButton');
+// exports.LikeView = require('./FBLikeView');
+// exports.LoginButton = require('./FBLoginButton');
+// exports.SendButton = require('./FBSendButton');
+// exports.ShareButton = require('./FBShareButton');
